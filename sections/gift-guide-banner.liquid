@@ -420,12 +420,12 @@
     const section = document.getElementById(`ggb-{{ section.id }}`);
     if (!section) return;
 
-    const burger = section.querrySelector('.ggb__burger');
-    const panel = section.querrySelector('.ggb__pannel');
+    const burger = section.querySelector('.ggb__burger');
+    const panel = section.querySelector('.ggb__panel');
     if (!burger || !panel) return;
 
-    burger.addEventListner('click', function () {
-      section.classList.toggle('is-pannel-open');
+    burger.addEventListener('click', function () {
+      section.classList.toggle('is-panel-open');
     });
   }
 
