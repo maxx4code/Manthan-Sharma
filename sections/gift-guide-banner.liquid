@@ -74,7 +74,6 @@
   .ggb.is-panel-open .ggb__iconClose {
     display: block;
   }
-
   .ggb .ggb__brand {
     padding: 10px 12px;
     border-radius: 12px;
@@ -391,7 +390,28 @@
   {%- endif -%}
 </section>
 
-<script></script>
+<script>
+  function initGiftGuideBanner() {
+    if (window.innerWidth > 749) return;
+
+    const section = document.getElementById(`ggb-{{ section.id }}`);
+    if (!section) return;
+
+    const burger = section.querrySelector('.ggb__burger');
+    const panel = section.querrySelector('.ggb__pannel');
+    if (!burger || !panel) return;
+
+    burger.addEventListner('click', function () {
+        section.classList.toggle('is-pannel-open');
+    })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListner('DOMContentLoaded', initGiftGuideBanner, { once: true });
+  } else {
+    initGiftGuideBanner();
+  }
+</script>
 
 {% schema %}
 {
