@@ -1,3 +1,63 @@
+<section
+  class="pgp"
+  id="pgp-{{ section.id }}"
+  data-upsell-variant="{{ section.settings.upsell_product.selected_or_first_available_variant.id | default: 0 }}"
+  style="
+    --pgp-mb-desktop: {{ section.settings.margin_bottom_desktop }}px;
+    --pgp-mb-mobile: {{ section.settings.margin_bottom_mobile }}px;
+  "
+>
+  <div class="page-width pgp__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pgp__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="pgp__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        <div class="pgp__card" role="listitem" {{ block.shopify_attributes }}>
+          {%- if p != blank -%}
+            <div class="pgp__media" aria-hidden="true">
+              {%- if p.featured_image != blank -%}
+                <img
+                  class="pgp__img"
+                  src="{{ p.featured_image | image_url: width: 900 }}"
+                  srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 700 }} 700w, {{ p.featured_image | image_url: width: 900 }} 900w"
+                  sizes="(max-width: 749px) 50vw, 33vw"
+                  alt=""
+                  loading="lazy"
+                  width="{{ p.featured_image.width }}"
+                  height="{{ p.featured_image.height }}"
+                >
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'pgp__img' }}
+              {%- endif -%}
+            </div>
+
+            <button
+              class="pgp__open"
+              type="button"
+              aria-label="Quick add {{ p.title | escape }}"
+              data-title="{{ p.title | escape }}"
+              data-price="{{ p.price }}"
+              data-description="{{ p.description | strip_html | truncate: 200 | escape }}"
+              data-image="{{ p.featured_image | image_url: width: 240 }}"
+              data-variants="{{ p.variants | json | escape }}"
+              data-options="{{ p.options_with_values | json | escape }}"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" focusable="false" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'pgp__img' }}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Tisso Product Grid",
