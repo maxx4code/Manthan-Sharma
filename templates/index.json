@@ -309,37 +309,37 @@
         "product_fVYhAP": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "black-leather-bag"
           }
         },
         "product_GR9JKX": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "blue-silk-tuxedo"
           }
         },
         "product_RLTzEq": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "chequered-red-shirt"
           }
         },
         "product_9mGWem": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "classic-leather-jacket"
           }
         },
         "product_eLWtPV": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "classic-varsity-top"
           }
         },
         "product_PWKJD8": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "dark-denim-top"
           }
         }
       },
@@ -354,7 +354,7 @@
       "name": "Tisso Product Grid",
       "settings": {
         "heading": "Tisso vison in the wild",
-        "upsell_product": "",
+        "upsell_product": "dark-winter-jacket",
         "margin_bottom_desktop": 0,
         "margin_bottom_mobile": 0
       }
