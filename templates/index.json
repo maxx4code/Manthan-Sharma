@@ -302,11 +302,68 @@
         "margin_bottom_desktop": 0,
         "margin_bottom_mobile": 0
       }
+    },
+    "product_grid_74BDrp": {
+      "type": "product-grid",
+      "blocks": {
+        "product_fVYhAP": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_GR9JKX": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_RLTzEq": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_9mGWem": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_eLWtPV": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_PWKJD8": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_fVYhAP",
+        "product_GR9JKX",
+        "product_RLTzEq",
+        "product_9mGWem",
+        "product_eLWtPV",
+        "product_PWKJD8"
+      ],
+      "name": "Tisso Product Grid",
+      "settings": {
+        "heading": "Tisso vison in the wild",
+        "upsell_product": "",
+        "margin_bottom_desktop": 0,
+        "margin_bottom_mobile": 0
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
-    "gift_guide_banner_rEpibQ"
+    "gift_guide_banner_rEpibQ",
+    "product_grid_74BDrp"
   ]
 }
