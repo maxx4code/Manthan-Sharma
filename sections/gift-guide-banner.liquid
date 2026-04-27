@@ -258,8 +258,8 @@
     line-height: 1.35;
   }
   .ggb .ggb__btn--panel {
-    width: calc(100% - 36px);
-    min-width: 0;
+    width: 65vw;
+    max-width: 244px;
   }
 
   @media (max-width: 749px) {
@@ -271,11 +271,15 @@
     }
     .ggb .ggb__top {
       padding-top: 23px;
-      padding-bottom: 23px
+      padding-bottom: 23px;
+      position: relative;
+      justify-content: center;
     }
     .ggb .ggb__burger {
       display: inline-flex;
       padding: unset;
+      position: absolute;
+      left: 16px;
     }
     .ggb .ggb__brand {
       font-size: 18px;
