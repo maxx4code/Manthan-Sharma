@@ -1,3 +1,61 @@
+<style>
+  .pgp {
+    background: #fff;
+    color: #111;
+    margin-bottom: var(--pgp-mb-desktop);
+  }
+  .pgp * { box-sizing: border-box; }
+  .pgp a { color: inherit; text-decoration: none; }
+  .pgp button { font: inherit; color: inherit; }
+
+  .pgp__inner { padding: 28px 0; }
+  .pgp__heading {
+    margin: 0 0 18px 0;
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+  .pgp__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .pgp__card {
+    position: relative;
+    background: #f3f3f3;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+  .pgp__media,
+  .pgp__img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .pgp__img { object-fit: cover; }
+
+  .pgp__open {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  .pgp__open svg { display: block; }
+
+  @media (max-width: 749px) {
+    .pgp { margin-bottom: var(--pgp-mb-mobile); }
+    .pgp__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .pgp__heading { font-size: 22px; }
+  }
+</style>
+
 <section
   class="pgp"
   id="pgp-{{ section.id }}"
