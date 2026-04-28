@@ -4,11 +4,21 @@
     color: #111;
     margin-bottom: var(--pgp-mb-desktop);
   }
-  .pgp * { box-sizing: border-box; }
-  .pgp a { color: inherit; text-decoration: none; }
-  .pgp button { font: inherit; color: inherit; }
+  .pgp * {
+    box-sizing: border-box;
+  }
+  .pgp a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .pgp button {
+    font: inherit;
+    color: inherit;
+  }
 
-  .pgp__inner { padding: 28px 0; }
+  .pgp__inner {
+    padding: 28px 0;
+  }
   .pgp__heading {
     margin: 0 0 18px 0;
     font-size: 28px;
@@ -32,7 +42,9 @@
     height: 100%;
     display: block;
   }
-  .pgp__img { object-fit: cover; }
+  .pgp__img {
+    object-fit: cover;
+  }
 
   .pgp__open {
     position: absolute;
@@ -47,19 +59,249 @@
     place-items: center;
     cursor: pointer;
   }
-  .pgp__open svg { display: block; }
+  .pgp__open svg {
+    display: block;
+  }
+
+  /* Quick-add modal shell (markup injected once via JS; see modalShellHtml) */
+  .pgp__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.45);
+  }
+  .pgp.is-modal-open .pgp__overlay {
+    display: flex;
+  }
+  .pgp__modal {
+    position: relative;
+    width: min(420px, 100%);
+    max-height: min(90vh, 720px);
+    overflow: auto;
+    background: #fff;
+    color: #111;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  .pgp__modalClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    color: #111;
+  }
+  .pgp__modalBody {
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: 16px;
+    padding: 20px 44px 16px 20px;
+    align-items: start;
+  }
+  .pgp__modalThumb {
+    width: 112px;
+    height: 112px;
+    background: #e8e8e8;
+    overflow: hidden;
+  }
+  .pgp__modalThumb img,
+  .pgp__modalThumb svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pgp__modalTitle {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .pgp__modalPrice {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .pgp__modalDesc {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #444;
+  }
+  .pgp__modalError {
+    margin: 0 20px 16px;
+    padding: 12px;
+    font-size: 13px;
+    color: #b42318;
+    background: #fef3f2;
+    border: 1px solid #fecdca;
+  }
+
+  .pgp__modalOpts {
+    padding: 0 20px 16px;
+    display: grid;
+    gap: 18px;
+  }
+  .pgp__modalField {
+    display: grid;
+    gap: 8px;
+  }
+  .pgp__modalLabel {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+    font-weight: 400;
+  }
+  .pgp__colorRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .pgp__colorBtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 12px 10px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: left;
+    overflow: hidden;
+  }
+  .pgp__colorBtn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+  }
+  .pgp__colorBtn:nth-child(1)::before {
+    background: #c41e1e;
+  }
+  .pgp__colorBtn:nth-child(2)::before {
+    background: #8a8a8a;
+  }
+  .pgp__colorBtn:nth-child(3)::before {
+    background: #6b6b6b;
+  }
+  .pgp__colorBtn[aria-pressed='true'] {
+    border-color: #111;
+    box-shadow: inset 0 0 0 1px #111;
+  }
+  .pgp__selectWrap {
+    position: relative;
+  }
+  .pgp__modalSelect {
+    width: 100%;
+    appearance: none;
+    margin: 0;
+    padding: 12px 44px 12px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background: #fff;
+    font-size: 13px;
+    color: #111;
+    cursor: pointer;
+  }
+  .pgp__selectWrap::after {
+    content: '';
+    position: absolute;
+    right: 36px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+  }
+  .pgp__selectChev {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -6px;
+    border-right: 1.5px solid #111;
+    border-bottom: 1.5px solid #111;
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  .pgp__modalFooter {
+    padding: 0 20px 20px;
+  }
+  .pgp__modalAtc {
+    width: 100%;
+    border: 0;
+    background: #111;
+    color: #fff;
+    padding: 16px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .pgp__modalAtcArrow {
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .pgp__modalAtcArrow::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: translateY(-50%) rotate(45deg);
+  }
 
   @media (max-width: 749px) {
-    .pgp { margin-bottom: var(--pgp-mb-mobile); }
-    .pgp__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .pgp__heading { font-size: 22px; }
+    .pgp {
+      margin-bottom: var(--pgp-mb-mobile);
+    }
+    .pgp__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .pgp__heading {
+      font-size: 22px;
+    }
+    .pgp__modalBody {
+      grid-template-columns: 96px 1fr;
+      gap: 12px;
+      padding: 18px 40px 14px 16px;
+    }
+    .pgp__modalThumb {
+      width: 96px;
+      height: 96px;
+    }
   }
 </style>
 
 <section
   class="pgp"
   id="pgp-{{ section.id }}"
-  data-upsell-variant="{{ section.settings.upsell_product.selected_or_first_available_variant.id | default: 0 }}"
+  data-upsell-variant="{% if section.settings.auto_add_product != blank %}{{ section.settings.auto_add_product.selected_or_first_available_variant.id }}{% else %}0{% endif %}"
   style="
     --pgp-mb-desktop: {{ section.settings.margin_bottom_desktop }}px;
     --pgp-mb-mobile: {{ section.settings.margin_bottom_mobile }}px;
@@ -95,13 +337,9 @@
             <button
               class="pgp__open"
               type="button"
-              aria-label="Quick add {{ p.title | escape }}"
-              data-title="{{ p.title | escape }}"
-              data-price="{{ p.price }}"
-              data-description="{{ p.description | strip_html | truncate: 200 | escape }}"
-              data-image="{{ p.featured_image | image_url: width: 240 }}"
-              data-variants="{{ p.variants | json | escape }}"
-              data-options="{{ p.options_with_values | json | escape }}"
+              aria-haspopup="dialog"
+              data-handle="{{ p.handle }}"
+              aria-label="Quick add: {{ p.title | escape }}"
             >
               <svg viewBox="0 0 24 24" width="16" height="16" focusable="false" aria-hidden="true">
                 <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -115,6 +353,383 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    const SID = {{ section.id | json }};
+    const root = document.getElementById('pgp-' + SID);
+    if (!root) return;
+
+    let overlay,
+      modal,
+      elBody,
+      elThumb,
+      elTitle,
+      elPrice,
+      elDesc,
+      elOpts,
+      elErr,
+      atcBtn;
+    let active = null;
+    let fetchGen = 0;
+
+    function modalShellHtml() {
+      return (
+        '<div class="pgp__overlay" hidden data-pgp-overlay>' +
+        '<div class="pgp__modal" role="dialog" aria-modal="true" aria-labelledby="pgp-modal-title-' +
+        SID +
+        '" data-pgp-modal>' +
+        '<button type="button" class="pgp__modalClose" aria-label="Close" data-pgp-close>&times;</button>' +
+        '<div class="pgp__modalBody" data-pgp-modal-body hidden>' +
+        '<div class="pgp__modalThumb" data-pgp-modal-thumb aria-hidden="true"></div>' +
+        '<div><h2 class="pgp__modalTitle" id="pgp-modal-title-' +
+        SID +
+        '" data-pgp-modal-title></h2>' +
+        '<p class="pgp__modalPrice" data-pgp-modal-price></p>' +
+        '<p class="pgp__modalDesc" data-pgp-modal-desc></p></div></div>' +
+        '<p class="pgp__modalError" data-pgp-modal-error hidden role="alert"></p>' +
+        '<div class="pgp__modalOpts" data-pgp-modal-opts></div>' +
+        '<div class="pgp__modalFooter">' +
+        '<button type="button" class="pgp__modalAtc" data-pgp-atc>' +
+        '<span>ADD TO CART</span><span class="pgp__modalAtcArrow" aria-hidden="true"></span></button></div></div></div>'
+      );
+    }
+
+    function ensureModal() {
+      if (overlay) return;
+      root.insertAdjacentHTML('beforeend', modalShellHtml());
+      overlay = root.querySelector('[data-pgp-overlay]');
+      modal = root.querySelector('[data-pgp-modal]');
+      elBody = modal.querySelector('[data-pgp-modal-body]');
+      elThumb = modal.querySelector('[data-pgp-modal-thumb]');
+      elTitle = modal.querySelector('[data-pgp-modal-title]');
+      elPrice = modal.querySelector('[data-pgp-modal-price]');
+      elDesc = modal.querySelector('[data-pgp-modal-desc]');
+      elOpts = modal.querySelector('[data-pgp-modal-opts]');
+      elErr = modal.querySelector('[data-pgp-modal-error]');
+      atcBtn = modal.querySelector('[data-pgp-atc]');
+
+      modal.querySelector('[data-pgp-close]').addEventListener('click', closeModal);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal();
+      });
+      elOpts.addEventListener('change', function () {
+        if (active) updatePriceForSelection(active);
+      });
+      elOpts.addEventListener('click', function (e) {
+        const b = e.target.closest('.pgp__colorBtn');
+        if (!b || !elOpts.contains(b)) return;
+        const row = b.closest('.pgp__colorRow');
+        if (!row) return;
+        row.querySelectorAll('.pgp__colorBtn').forEach(function (x) {
+          x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+        });
+        if (active) updatePriceForSelection(active);
+      });
+      atcBtn.addEventListener('click', onAtc);
+    }
+
+    function stripHtml(html) {
+      if (!html) return '';
+      const d = document.createElement('div');
+      d.innerHTML = html;
+      return (d.textContent || '').trim();
+    }
+
+    function escAttr(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function productThumbSrc(product) {
+      if (product.featured_image) {
+        if (typeof product.featured_image === 'string') return product.featured_image;
+        if (product.featured_image.src) return product.featured_image.src;
+      }
+      if (product.images && product.images[0]) {
+        const im0 = product.images[0];
+        return typeof im0 === 'string' ? im0 : im0.src;
+      }
+      return '';
+    }
+
+    function optionCount(product) {
+      return product.options && product.options.length ? product.options.length : 0;
+    }
+
+    function variantOptionArray(v, n) {
+      const o = [];
+      if (n >= 1 && v.option1 != null && String(v.option1) !== '') o.push(v.option1);
+      if (n >= 2 && v.option2 != null && String(v.option2) !== '') o.push(v.option2);
+      if (n >= 3 && v.option3 != null && String(v.option3) !== '') o.push(v.option3);
+      return o;
+    }
+
+    function normOpt(s) {
+      return String(s == null ? '' : s).trim().toLowerCase();
+    }
+
+    function readSelection(nOpts) {
+      const out = [];
+      for (let i = 0; i < nOpts; i++) out[i] = '';
+      elOpts.querySelectorAll('.pgp__modalField').forEach(function (field, idx) {
+        if (idx >= nOpts) return;
+        const row = field.querySelector('.pgp__colorRow');
+        if (row) {
+          const on = row.querySelector('.pgp__colorBtn[aria-pressed="true"]');
+          out[idx] = on ? on.textContent.trim() : '';
+          return;
+        }
+        const sel = field.querySelector('.pgp__modalSelect');
+        out[idx] = sel ? sel.value : '';
+      });
+      return out;
+    }
+
+    function findVariant(product) {
+      const n = optionCount(product);
+      const sel = readSelection(n).map(normOpt);
+      return (
+        product.variants.find(function (v) {
+          const vo = variantOptionArray(v, n).map(normOpt);
+          if (vo.length !== sel.length) return false;
+          return vo.every(function (val, i) {
+            return val === (sel[i] || '');
+          });
+        }) || null
+      );
+    }
+
+    /** Same idea as cart line `variant_options` + `variant_title` ("M / Black"). */
+    function collectVariantOptionTokens(product, variant) {
+      const set = new Set();
+      const n = optionCount(product);
+      const addArr = function (arr) {
+        (arr || []).forEach(function (item) {
+          const t = normOpt(item);
+          if (t) set.add(t);
+        });
+      };
+      addArr(readSelection(n));
+      addArr(variantOptionArray(variant, n));
+      if (variant && Array.isArray(variant.variant_options)) {
+        addArr(variant.variant_options);
+      }
+      ['title', 'name', 'public_title'].forEach(function (key) {
+        if (!variant || !variant[key]) return;
+        const parts = String(variant[key]).split(/\s*\/\s*/);
+        addArr(parts);
+      });
+      return Array.from(set);
+    }
+
+    function isBlackToken(t) {
+      return t === 'black' || t === 'noir' || t === 'blk';
+    }
+
+    /** Cart uses "M"; storefront may use "Medium". */
+    function isMediumSizeToken(t) {
+      return t === 'medium' || t === 'm' || t === 'md' || t === 'med';
+    }
+
+    function shouldAutoAddBundle(product, variant) {
+      const tokens = collectVariantOptionTokens(product, variant);
+      return tokens.some(isBlackToken) && tokens.some(isMediumSizeToken);
+    }
+
+    function updatePriceForSelection(product) {
+      const v = findVariant(product);
+      if (v && elPrice) elPrice.textContent = v.price != null ? String(v.price) : '';
+    }
+
+    function renderOptionsHtml(product) {
+      const parts = [];
+      (product.options || []).forEach(function (opt, optIdx) {
+        const values = opt.values || [];
+        const name = escAttr(opt.name || '');
+        if (values.length === 2) {
+          parts.push(
+            '<div class="pgp__modalField"><p class="pgp__modalLabel">' +
+              name +
+              '</p><div class="pgp__colorRow">' +
+              values
+                .map(function (val, i) {
+                  return (
+                    '<button type="button" class="pgp__colorBtn" aria-pressed="' +
+                    (i === 0 ? 'true' : 'false') +
+                    '">' +
+                    escAttr(val) +
+                    '</button>'
+                  );
+                })
+                .join('') +
+              '</div></div>'
+          );
+        } else {
+          const id = 'pgp-opt-' + SID + '-' + optIdx;
+          const opts = values
+            .map(function (val, i) {
+              return (
+                '<option value="' +
+                escAttr(val) +
+                '"' +
+                (i === 0 ? ' selected' : '') +
+                '>' +
+                escAttr(val) +
+                '</option>'
+              );
+            })
+            .join('');
+          parts.push(
+            '<div class="pgp__modalField"><label class="pgp__modalLabel" for="' +
+              id +
+              '">' +
+              name +
+              '</label><div class="pgp__selectWrap"><select class="pgp__modalSelect" id="' +
+              id +
+              '">' +
+              opts +
+              '</select><span class="pgp__selectChev" aria-hidden="true"></span></div></div>'
+          );
+        }
+      });
+      return parts.join('');
+    }
+
+    function showModal() {
+      root.classList.add('is-modal-open');
+      overlay.hidden = false;
+    }
+
+    function closeModal() {
+      root.classList.remove('is-modal-open');
+      overlay.hidden = true;
+      active = null;
+      if (elErr) {
+        elErr.hidden = true;
+        elErr.textContent = '';
+      }
+      if (elBody) {
+        elBody.
+    } 
+    }
+
+    function onAtc() {
+      if (!active || !active.variants) return;
+      const v = findVariant(active);
+      if (!v) return;
+      const productId = active.id != null ? String(active.id) : undefined;
+      const variantId = String(v.id);
+      const upsellRaw = root.getAttribute('data-upsell-variant');
+      const upsellVariantId = upsellRaw ? parseInt(upsellRaw, 10) : 0;
+      const addUpsell = !!(upsellVariantId && shouldAutoAddBundle(active, v));
+
+      atcBtn.disabled = true;
+      cartAddLine(v.id, 1)
+        .then(function () {
+          if (!addUpsell) return;
+          return cartAddLine(upsellVariantId, 1).catch(function () {});
+        })
+        .then(function () {
+          return fetch('/cart.js');
+        })
+        .then(function (res) {
+          if (!res.ok) throw new Error();
+          return res.json();
+        })
+        .then(function (cart) {
+          document.dispatchEvent(
+            new CustomEvent('cart:update', {
+              bubbles: true,
+              detail: {
+                resource: cart,
+                sourceId: 'product-grid-popup',
+                data: {
+                  source: 'product-grid-popup',
+                  itemCount: cart.item_count,
+                  variantId: variantId,
+                  productId: productId,
+                },
+              },
+            })
+          );
+          closeModal();
+        })
+        .catch(function () {})
+        .finally(function () {
+          atcBtn.disabled = false;
+        });
+    }
+
+    async function openFromButton(btn) {
+      ensureModal();
+      const handle = btn.dataset.handle;
+      if (!handle) return;
+      const gen = ++fetchGen;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/products/' + encodeURIComponent(handle) + '.js');
+        if (gen !== fetchGen) return;
+        if (!res.ok) throw new Error('bad_status');
+        const product = await res.json();
+        if (gen !== fetchGen) return;
+
+        active = product;
+        if (elErr) elErr.hidden = true;
+        if (elBody) elBody.hidden = false;
+
+        elTitle.textContent = product.title || '';
+        elDesc.textContent = stripHtml(product.body_html || product.description || '');
+
+        const first = product.variants && product.variants[0];
+        if (elPrice) {
+          elPrice.textContent =
+            first && first.price != null ? String(first.price) : product.price != null ? String(product.price) : '';
+        }
+
+        elThumb.innerHTML = '';
+        const src = productThumbSrc(product);
+        if (src) {
+          elThumb.innerHTML = '<img alt="" width="112" height="112" loading="lazy">';
+          const img = elThumb.querySelector('img');
+          if (img) img.src = src;
+        }
+
+        elOpts.innerHTML = renderOptionsHtml(product);
+        updatePriceForSelection(product);
+
+        showModal();
+      } catch (e) {
+        if (gen !== fetchGen) return;
+        if (elBody) elBody.hidden = true;
+        if (elErr) {
+          elErr.textContent = 'Could not load this product. Please try again.';
+          elErr.hidden = false;
+        }
+        elOpts.innerHTML = '';
+        active = null;
+        elTitle.textContent = 'Unable to load';
+        showModal();
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    root.querySelectorAll('.pgp__open').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openFromButton(btn);
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && root.classList.contains('is-modal-open')) closeModal();
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -130,8 +745,9 @@
     },
     {
       "type": "product",
-      "id": "upsell_product",
-      "label": "Auto-add product (Soft Winter Jacket}"
+      "id": "auto_add_product",
+      "label": "Auto-add product (with Black + Medium)",
+      "info": "When the chosen variant includes Black and a medium size (M, Medium, Md, Med), this product’s first available variant is added too — same idea as cart variant_options (e.g. M + Black)."
     },
     {
       "type": "range",
