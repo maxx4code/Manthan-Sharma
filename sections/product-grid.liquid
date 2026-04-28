@@ -63,6 +63,10 @@
     display: block;
   }
 
+  body.pgp-scroll-lock {
+    overflow: hidden;
+  }
+
   /* Quick-add modal shell (markup injected once via JS; see modalShellHtml) */
   .pgp__overlay {
     position: fixed;
@@ -372,30 +376,6 @@
       atcBtn;
     let active = null;
     let fetchGen = 0;
-    let scrollY = 0;
-    let scrollLocked = false;
-
-    function lockScroll() {
-      if (scrollLocked) return;
-      scrollLocked = true;
-      scrollY = window.scrollY || window.pageYOffset || 0;
-      document.body.style.position = 'fixed';
-      document.body.style.top = '-' + scrollY + 'px';
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
-    }
-
-    function unlockScroll() {
-      if (!scrollLocked) return;
-      scrollLocked = false;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollY);
-    }
 
     function modalShellHtml() {
       return (
@@ -626,14 +606,14 @@
     function showModal() {
       root.classList.add('is-modal-open');
       overlay.hidden = false;
-      lockScroll();
+      document.body.classList.add('pgp-scroll-lock');
     }
 
     function closeModal() {
       root.classList.remove('is-modal-open');
       overlay.hidden = true;
       active = null;
-      unlockScroll();
+      document.body.classList.remove('pgp-scroll-lock');
       if (elErr) {
         elErr.hidden = true;
         elErr.textContent = '';
