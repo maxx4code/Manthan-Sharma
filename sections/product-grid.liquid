@@ -373,6 +373,36 @@
     let active = null;
     let fetchGen = 0;
 
+    let bodyPrevOverflow = null;
+    let bodyPrevPaddingRight = null;
+
+    function lockBodyScroll() {
+      if (bodyPrevOverflow !== null) return;
+      const body = document.body;
+      if (!body) return;
+
+      bodyPrevOverflow = body.style.overflow;
+      bodyPrevPaddingRight = body.style.paddingRight;
+
+      const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
+      if (scrollbarW > 0) {
+        const cur = parseFloat(getComputedStyle(body).paddingRight || '0') || 0;
+        body.style.paddingRight = cur + scrollbarW + 'px';
+      }
+      body.style.overflow = 'hidden';
+    }
+
+    function unlockBodyScroll() {
+      if (bodyPrevOverflow === null) return;
+      const body = document.body;
+      if (!body) return;
+
+      body.style.overflow = bodyPrevOverflow || '';
+      body.style.paddingRight = bodyPrevPaddingRight || '';
+      bodyPrevOverflow = null;
+      bodyPrevPaddingRight = null;
+    }
+
     function modalShellHtml() {
       return (
         '<div class="pgp__overlay" hidden data-pgp-overlay>' +
