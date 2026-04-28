@@ -245,7 +245,7 @@
     width: 100%;
     border: 0;
     background: #111;
-    color: #fff !important;
+    color: #fff;
     padding: 16px 20px;
     font-size: 12px;
     font-weight: 600;
@@ -372,35 +372,29 @@
       atcBtn;
     let active = null;
     let fetchGen = 0;
+    let scrollY = 0;
+    let scrollLocked = false;
 
-    let bodyPrevOverflow = null;
-    let bodyPrevPaddingRight = null;
-
-    function lockBodyScroll() {
-      if (bodyPrevOverflow !== null) return;
-      const body = document.body;
-      if (!body) return;
-
-      bodyPrevOverflow = body.style.overflow;
-      bodyPrevPaddingRight = body.style.paddingRight;
-
-      const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
-      if (scrollbarW > 0) {
-        const cur = parseFloat(getComputedStyle(body).paddingRight || '0') || 0;
-        body.style.paddingRight = cur + scrollbarW + 'px';
-      }
-      body.style.overflow = 'hidden';
+    function lockScroll() {
+      if (scrollLocked) return;
+      scrollLocked = true;
+      scrollY = window.scrollY || window.pageYOffset || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + scrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
     }
 
-    function unlockBodyScroll() {
-      if (bodyPrevOverflow === null) return;
-      const body = document.body;
-      if (!body) return;
-
-      body.style.overflow = bodyPrevOverflow || '';
-      body.style.paddingRight = bodyPrevPaddingRight || '';
-      bodyPrevOverflow = null;
-      bodyPrevPaddingRight = null;
+    function unlockScroll() {
+      if (!scrollLocked) return;
+      scrollLocked = false;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
     }
 
     function modalShellHtml() {
@@ -632,12 +626,14 @@
     function showModal() {
       root.classList.add('is-modal-open');
       overlay.hidden = false;
+      lockScroll();
     }
 
     function closeModal() {
       root.classList.remove('is-modal-open');
       overlay.hidden = true;
       active = null;
+      unlockScroll();
       if (elErr) {
         elErr.hidden = true;
         elErr.textContent = '';
