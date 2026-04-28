@@ -612,9 +612,20 @@
         elErr.hidden = true;
         elErr.textContent = '';
       }
-      if (elBody) {
-        elBody.
-    } 
+      if (elBody) elBody.hidden = false;
+    }
+
+    function cartAddLine(variantId, qty) {
+      const id = Number(variantId);
+      if (!id) return Promise.reject(new Error('bad_variant'));
+      return fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ items: [{ id: id, quantity: qty || 1 }] }),
+      }).then(function (res) {
+        if (!res.ok) throw new Error('add_failed');
+        return res;
+      });
     }
 
     function onAtc() {
