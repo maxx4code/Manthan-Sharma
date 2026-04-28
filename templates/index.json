@@ -354,7 +354,7 @@
       "name": "Tisso Product Grid",
       "settings": {
         "heading": "Tisso vison in the wild",
-        "upsell_product": "dark-winter-jacket",
+        "auto_add_product": "dark-winter-jacket",
         "margin_bottom_desktop": 0,
         "margin_bottom_mobile": 0
       }
